@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <properties>
+        <property name = "filename">log4j.log</property>
+        <property name = "backupFilePatch">./log/</property>
+    </properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5level %msg %c (%F:%L) %n"/>
+        </Console>
+        <RollingFile name= "RollingFile" filename = "${backupFilePatch}${filename}"
+                filePattern = "${backupFilePatch}$${date:yyyy-MM}/app-%d{yyyyMMddHHmmssSSS}.log.gz">
+                <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5level %msg %c (%F:%L) %n"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+                <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>    
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
